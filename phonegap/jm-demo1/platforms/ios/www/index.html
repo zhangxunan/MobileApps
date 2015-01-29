@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/master.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/knockout-3.2.0.js"></script>
+        
+        <!--<script type="text/javascript" src="js/knockout.mapping-latest.js"></script>
+        
+        <script type="text/html" id="person-template">
+            <h3 data-bind="text: name"></h3>
+            <p>Credits: <span data-bind="text: credits"></span></p>
+        </script>
+        <script type="text/html" id="worklog-temlate">
+            <li data-role="list-divider" data-bind="text: currentdate">
+            <span data-bind="text: count" class="ui-li-count"></span></li>
+            <li><a href="#">
+            <h2 data-bind="text: title"></h2>
+            <p data-bind="text: content"></p>
+            <p class="ui-li-aside" data-bind="text: remark"></p></a>
+            </li>
+        </script>
+         -->
+        
+        
+        
+        <script type="text/javascript">
+            app.initialize();
+            //alert(2);
+            ko.applyBindings({
+                             people:[
+                                     {firstName:'Bert',lastName:'Bertington' },
+                                     {firstName:'Charles',lastName:'Charlesforth' },
+                                     {firstName:'Denise',lastName:'Dentiste'}
+                                     ]
+                             });
+                             //alert(1);
+          
+        </script>
+
+        <title>JM-Demo1</title>
+    </head>
+    <body>
+        
+            <div data-role="page" id="pageone">
+                
+                <div data-role="header" data-position="fixed">
+                    <h1> </h1>
+                    <div id="deviceready" class="blink" style="text-align:center;">
+                        <p class="event listening">Connecting to Device</p>
+                        <p class="event received">Device is Ready</p>
+                    </div>
+                </div>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#pageone" data-icon="home"
+                            class="ui-btn-active ui-state-persist">首页</a></li>
+                        <li><a href="#pagetwo" data-icon="arrow-r">页面二</a></li>
+                        <li><a href="#pagethree" data-rel="dialog" data-icon="search">搜索</a></li>
+                    </ul>
+                </div>
+                
+                <div data-role="content">
+                    <div data-role="controlgroup" data-type="horizontal">
+                        <a href="#pagetwo" data-role="button"
+                            data-transition="slide" data-inline="true">我的日志</a>
+                        <a href="#pagethree" data-role="button"
+                            data-transition="slide" data-inline="true">我的单据</a>
+                    </div>
+                    <ul data-role="listview" data-inset="true">
+                        <!-- ko foreach: myItems -->
+                        <li>Item <span data-bind="text: $data"></span></li>
+                        <!-- /ko -->
+                    </ul>
+                    <table>
+                        <thead>
+                            <tr><th>First name</th><th>Last name</th></tr>
+                        </thead>
+                        <tbody data-bind="foreach:people">
+                            <tr>
+                                <td data-bind="text:firstName"></td>
+                                <td data-bind="text:lastName"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div data-role="footer" data-position="fixed">
+                    <h1>页脚文本</h1>
+                </div>
+            </div>
+            
+            <div data-role="page" id="pagetwo">
+                <div data-role="header" data-position="fixed">
+                    <a href="#pageone" data-role="button" data-icon="back">首页</a>
+                    <h1>我的日历</h1>
+                </div>
+                
+                <div data-role="content">
+                    <h2>我的日历</h2>
+                    <div data-role="navbar">
+                        <ul>
+                            <li><a href="#" data-icon="plus">更多</a></li>
+                            <li><a href="#" data-icon="minus">更少</a></li>
+                            <li><a href="#" data-icon="delete">删除</a></li>
+                            <li><a href="#" data-icon="check">喜爱</a></li>
+                            <li><a href="#" data-icon="info">信息</a></li>
+                        </ul>
+                    </div>
+                    <ul data-role="listview" data-inset="true">
+                        <li data-role="list-divider">星期三, 1 月 2 日, 2013 <span class="ui-li-count">2</span></li>
+                        <li><a href="#">
+                            <h2>医生</h2>
+                            <p><b>To Peter Griffin</b></p>
+                            <p>Well, Mr. Griffin, I've looked into physical results.</p>
+                            <p>Ah, Mr. Griffin, I'm not quite sure how to say this. Kim Bassinger? Bass singer? Bassinger?</p>
+                            <p>But now, onto the cancer</p>
+                            <p>You are a Cancer, right? You were born in July? Now onto these test results.</p>
+                            <p class="ui-li-aside">Re: Appointment</p></a>
+                        </li>
+                        <li><a href="#">
+                            <h2>Glen Quagmire</h2>
+                            <p>Remember me this weekend!</p>
+                            <br>
+                            <p>- giggity giggity goo</p>
+                            <p class="ui-li-aside">Re: Camping</p></a>
+                        </li>
+                        <li data-role="list-divider">周二, 1 月 1 日, 2013 <span class="ui-li-count">1</span></li>   
+                        <li><a href="#">   
+                            <h2>Louis</h2>
+                            <p><b>Happy Girl!</b></p>
+                            <p>Thank you so much!!</p>
+                            <p class="ui-li-aside">Re: Christmas Gifts</p></a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div data-role="footer" data-position="fixed">
+                    <h1>页脚文本</h1>
+                </div>
+            </div>
+            
+            <div data-role="page" id="pagethree">
+                <div data-role="header" data-position="fixed">
+                    <a href="#pageone" data-role="button" data-icon="back">首页</a>
+                    <h1>我的单据</h1>
+                </div>
+                    
+                <div data-role="content">
+                    <h2>我的单据</h2>
+                    Here are the participants:
+                    
+                    <!--<div data-bind="template: { name: 'person-template', data: buyer }"></div>
+                    <div data-bind="template: { name: 'person-template', data: seller}"></div>
+                        
+                        <ul data-role="listview" data-inset="true"
+                         data-bind="template: { name: 'worklog-temlate', data: worklog }">
+                         
+                         </ul>-->
+                </div>
+                    
+                <div data-role="footer" data-position="fixed">
+                    <h1>页脚文本</h1>
+                </div>
+            </div>
+    </body>
+</html>

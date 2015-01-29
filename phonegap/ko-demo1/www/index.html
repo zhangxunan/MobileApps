@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/knockout-3.2.0.js"></script>
+        <script type="text/javascript" src="js/knockout.mapping-latest.js"></script>
+        
+        
+        
+        <title>KO DEMO1</title>
+        
+    </head>
+    <body>
+        <div data-role="page" id="UserInfoPage">
+            <div data-role="header" data-position="fixed" data-fullscreen="false">
+                <h2 data-bind="text:title"></h2>
+            </div>
+            
+            <div data-role="content">
+                <form method="post" action="demoform.asp" id="userMainInfoForm">
+                    <div data-role="fieldcontain">
+                        <label for="fullname">全名：</label>
+                        <input type="text" name="fullname" id="fullname" data-bind="textInput: fullname">
+                            
+                        <label for="bday">生日：</label>
+                        <input type="date" name="bday" id="bday" data-bind="textInput: bday">
+                                
+                        <label for="email">电邮：</label>
+                        <input type="email" name="email" id="email"
+                            data-bind="textInput: email" placeholder="您的邮件地址..">
+                        <fieldset data-role="fieldcontain">
+                            <label for="day">选择天</label>
+                            <select name="day" id="day" data-bind="options: weekdays,
+                                optionsText: 'name',
+                                optionsValue: 'id',
+                                value: day">
+                            </select>
+                        </fieldset>
+                    </div>
+                    <div data-role="fieldcontain">
+                        <ul data-role="listview" data-inset="true" data-bind="foreach: childs">
+                            <li data-role="list-divider" data-bind="text:topdate"></li>
+                            <li><a href="#">   
+                                <h2 data-bind="text:name"></h2>
+                                <p data-bind="text:detail"></p>
+                                <p class="ui-li-aside" data-bind="text:info"></p></a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+            
+            <div data-role="footer" data-position="fixed" data-fullscreen="true">
+                <a href="#" data-role="button">save</a>
+            </div>
+        </div>
+        
+        
+    </body>
+    <script type="text/javascript">
+        function allPrpos ( obj ) {
+            // 用来保存所有的属性名称和值
+            var props = "" ;
+            // 开始遍历
+            for ( var p in obj ){ // 方法
+                if ( typeof ( obj [ p ]) == " function " ){
+                    obj [ p ]() ;
+                } else { // p 为属性名称，obj[p]为对应属性的值
+                    props += p + " = " + obj [ p ] + " \n " ;
+                }
+            } // 最后显示所有的属性
+            alert( props ) ;
+        }
+        $(function(){
+          $.post('http://172.16.10.128/demo/GetData2.ajax',
+                 '',function(data){
+                        //alert(2);
+                        var viewModel = ko.mapping.fromJS(data);
+                        ko.applyBindings(viewModel);
+                        //var unmapped = ko.mapping.toJS(viewModel);
+                        //allPrpos(data);
+                 });
+          //alert(123);
+        });
+        
+        
+        /*
+        var UserViewModel = {title:'用户信息',fullname: 'Bob',email: 'zhang@163.com',day:'fri',bday:'2014-12-01',
+            weekdays: [
+                       { name: '星期一', id: 'mon'},
+                       { name: '星期二', id: 'tue'},
+                       { name: '星期三', id: 'wed'},
+                       { name: '星期四', id: 'thu'},
+                       { name: '星期五', id: 'fri'},
+                       { name: '星期六', id: 'sat'},
+                       { name: '星期日', id: 'sun'}
+                      ],
+            childs:[{topdate:'周二, 1 月 1 日, 2013 ',name:'zxn',age:11,detail:'Thank you so much!!',info:''},{topdate:'周三, 1 月 2 日, 2013 ',name:'GQP',age:33,detail:'However, if you use value to link a form element to a non-observable property',info:'Re: Christmas Gifts'},{topdate:'周四, 1 月 3 日, 2013 ',name:'小施',age:33,detail:'However, if you use value to link a form element to a non-observable property',info:'Re: Christmas Gifts'}]};
+        ko.applyBindings(UserViewModel);*/
+                         
+    </script>
+</html>
